@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 637e8368bc9b33f47b2d695af758560e, type: 3}
+  m_Name: Learn Range
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponUpgrade
+  upgradeName: Hawk Eye
+  description: Bow - Shoot arrows to the enemy
+  icon: {fileID: -1730254177, guid: 132358e9bf26b60458b731bf001e31db, type: 3}
+  weaponType: 1
+  weaponPrefab: {fileID: 830325150804255340, guid: ab789228a8b0f6c40a713450ff79662f, type: 3}
