@@ -39,10 +39,22 @@ public class Enemy : Entity, IPoolable
         }
     }
 
+    public bool IsMarked { get; private set; }
+    private int currentMarkDepth;
+
+    public void ApplyMark(int depth)
+    {
+        IsMarked = true;
+        currentMarkDepth = depth;
+    }
+
     public void Setup(BaseAttackStrategy attackStrategy, Transform target, EnemyRole role, bool isEliteSpawn = false)
     {
+        IsMarked = false;
+        currentMarkDepth = 0;
+
         currentAttackStrategy = attackStrategy;
-        playerTarget = target;
+playerTarget = target;
         currentRole = role;
         isElite = isEliteSpawn;
 
@@ -116,6 +128,11 @@ public class Enemy : Entity, IPoolable
 
     public override void Die()
     {
+        if (IsMarked)
+        {
+            ExplosionManager.Instance.QueueExplosion(transform.position, currentMarkDepth);
+        }
+
         GameObject gemObj = PoolManager.Instance.SpawnFromPool("ExpGem", transform.position, Quaternion.identity);
 
         if (isElite)
