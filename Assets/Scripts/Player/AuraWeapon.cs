@@ -31,6 +31,8 @@ public class AuraWeapon : PlayerWeapon
         {
             IDamageable damageable = hit.GetComponent<IDamageable>();
             damageable?.TakeDamage(damage);
+
+            //if (hit.CompareTag("Enemy")) hit.GetComponent<Enemy>().ApplyMark(5);
         }
     }
 
