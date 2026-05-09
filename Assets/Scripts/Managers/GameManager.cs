@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,11 +10,14 @@ public class GameManager : MonoBehaviour
 
     public bool IsGameOver { get; private set; }
 
+    private InputSystem_Actions _inputActions;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            _inputActions = new InputSystem_Actions();
         }
         else
         {
@@ -24,11 +28,23 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         Player.OnPlayerDeath += HandlePlayerDeath;
+
+        if (_inputActions != null)
+        {
+            _inputActions.UI.Enable();
+            _inputActions.UI.Cancel.performed += OnPausePerformed;
+        }
     }
 
     private void OnDisable()
     {
         Player.OnPlayerDeath -= HandlePlayerDeath;
+
+        if (_inputActions != null)
+        {
+            _inputActions.UI.Cancel.performed -= OnPausePerformed;
+            _inputActions.UI.Disable();
+        }
     }
 
     private void Start()
@@ -51,11 +67,14 @@ public class GameManager : MonoBehaviour
     {
         if (IsGameOver) return;
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            TogglePause();
-        }
     }
+
+    private void OnPausePerformed(InputAction.CallbackContext context)
+    {
+        if (IsGameOver) return;
+        TogglePause();
+    }
+
     private void HandleVictory()
     {
         if (IsGameOver) return; 
