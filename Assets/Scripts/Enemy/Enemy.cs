@@ -15,7 +15,7 @@ public class Enemy : Entity, IPoolable
     private bool isElite;
 
     [Header("Visual Variants")]
-    [SerializeField] private SpriteRenderer spriteRenderer; 
+    [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private List<RoleSpriteMapping> spriteMappings;
 
     [SerializeField] private Dictionary<EnemyRole, Sprite> _enemySprite;
@@ -30,7 +30,7 @@ public class Enemy : Entity, IPoolable
     {
         _enemySprite = new Dictionary<EnemyRole, Sprite>();
 
-        foreach(var mapping in spriteMappings)
+        foreach (var mapping in spriteMappings)
         {
             if (!_enemySprite.ContainsKey(mapping.role))
             {
@@ -54,11 +54,11 @@ public class Enemy : Entity, IPoolable
         currentMarkDepth = 0;
 
         currentAttackStrategy = attackStrategy;
-playerTarget = target;
+        playerTarget = target;
         currentRole = role;
         isElite = isEliteSpawn;
 
-        if(_enemySprite.TryGetValue(role, out Sprite correctSprite))
+        if (_enemySprite.TryGetValue(role, out Sprite correctSprite))
         {
             spriteRenderer.sprite = correctSprite;
         }
@@ -69,21 +69,21 @@ playerTarget = target;
 
         float hpMultiplier = role switch
         {
-            EnemyRole.HeavyMelee => 3f,  
-            EnemyRole.Ranged => 0.7f,    
-            EnemyRole.FastMelee => 1f,   
+            EnemyRole.HeavyMelee => 3f,
+            EnemyRole.Ranged => 0.7f,
+            EnemyRole.FastMelee => 1f,
             _ => 1f
         };
 
         if (isElite)
         {
-            hpMultiplier *= 15f; 
-            transform.localScale = new Vector3(1.5f, 1.5f, 1f); 
-            spriteRenderer.color = new Color(1f, 0.4f, 0.4f); 
+            hpMultiplier *= 15f;
+            transform.localScale = new Vector3(1.5f, 1.5f, 1f);
+            spriteRenderer.color = new Color(1f, 0.4f, 0.4f);
         }
         else
         {
-            
+
             transform.localScale = Vector3.one;
             spriteRenderer.color = Color.white;
         }
@@ -92,7 +92,7 @@ playerTarget = target;
         CurrentHealth = maxHealth * hpMultiplier;
     }
 
-    
+
 
     private void Start()
     {
@@ -142,7 +142,7 @@ playerTarget = target;
 
 
         }
-        else if (currentRole == EnemyRole.HeavyMelee) 
+        else if (currentRole == EnemyRole.HeavyMelee)
         {
             if (gemObj != null) gemObj.GetComponent<ExperienceGem>().Setup(15f);
 
